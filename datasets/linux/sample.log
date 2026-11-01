@@ -1,0 +1,6 @@
+Jan 15 10:00:00 ubuntu sshd[100]: Failed password for alice from 10.10.1.25 port 22 ssh2
+Jan 15 10:01:00 ubuntu sshd[101]: Failed password for alice from 10.10.1.25 port 22 ssh2
+Jan 15 10:02:00 ubuntu sshd[102]: Accepted password for alice from 10.10.1.25 port 22 ssh2
+Jan 15 10:05:00 ubuntu sudo: pam_unix(sudo:auth): authentication failure; user=alice rhost=10.10.1.25
+Jan 15 10:06:00 ubuntu sshd[103]: Invalid user guest from 192.0.2.10 port 22
+Jan 15 10:07:00 ubuntu sudo: alice : TTY=pts/0 ; PWD=/home/alice ; COMMAND=/usr/bin/systemctl status

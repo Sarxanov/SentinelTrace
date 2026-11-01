@@ -1,0 +1,7 @@
+{"timestamp":"2025-01-15T10:00:00Z","event_id":4625,"hostname":"WS-01","event_data":{"TargetUserName":"alice","IpAddress":"10.10.1.25"},"message":"An account failed to log on"}
+{"timestamp":"2025-01-15T10:01:00Z","event_id":4625,"hostname":"WS-01","event_data":{"TargetUserName":"alice","IpAddress":"10.10.1.25"},"message":"An account failed to log on"}
+{"timestamp":"2025-01-15T10:02:00Z","event_id":4624,"hostname":"WS-01","event_data":{"TargetUserName":"alice","IpAddress":"10.10.1.25","LogonType":"10"},"message":"An account was successfully logged on"}
+{"timestamp":"2025-01-15T10:05:00Z","event_id":4672,"hostname":"WS-01","event_data":{"SubjectUserName":"alice"},"message":"Special privileges assigned to new logon"}
+{"timestamp":"2025-01-15T10:10:00Z","event_id":4740,"hostname":"DC-01","event_data":{"TargetUserName":"bob"},"message":"A user account was locked out"}
+{"timestamp":"2025-01-15T10:12:00Z","event_id":4720,"hostname":"DC-01","event_data":{"TargetUserName":"temp-admin","SubjectUserName":"administrator"},"message":"A user account was created"}
+{"timestamp":"2025-01-15T10:15:00Z","event_id":4732,"hostname":"DC-01","event_data":{"MemberName":"temp-admin","TargetUserName":"Administrators"},"message":"A member was added to a security-enabled local group"}
