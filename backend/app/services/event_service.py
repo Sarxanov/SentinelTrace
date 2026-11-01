@@ -1,13 +1,12 @@
 import hashlib
 import json
-from datetime import UTC, datetime
 from typing import Iterable
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from ..detection.rules import detect
-from ..models import Alert, AlertEvent, Event
+from ..models import Alert, AlertEvent, DetectionRule, Event
 from ..parsers.base import NormalizedEvent
 
 
@@ -34,7 +33,10 @@ def ingest(db: Session, normalized: Iterable[NormalizedEvent]) -> dict:
             errors.append(str(exc))
     db.flush()
     generated = 0
-    for result in detect(inserted):
+    enabled = db.scalars(select(DetectionRule).where(DetectionRule.enabled.is_(True))).all()
+    enabled_rules = {rule.id for rule in enabled}
+    rule_windows = {rule.id: rule.time_window_seconds for rule in enabled}
+    for result in detect(inserted, enabled_rules, rule_windows):
         alert = Alert(rule_id=result["rule_id"], title=result["title"], description=result["description"], severity=result["severity"], risk_score=result["risk_score"], reasons=result["reasons"])
         db.add(alert)
         db.flush()

@@ -2,7 +2,7 @@
 
 SentinelTrace is an educational defensive security monitoring platform by **Tuncay Sarxanlı**. It imports synthetic or user-supplied Windows Security JSON, Linux authentication logs, and Suricata EVE JSON, normalizes them into a common event model, evaluates explainable detection rules, stores alerts in SQLite, and exposes a FastAPI API with a React SOC dashboard.
 
-> **Status:** The current release implements the backend ingestion/detection/API path, a live overview dashboard, reports, synthetic datasets, tests, Docker configuration, and CI. The dashboard is intentionally focused on the implemented overview surface; advanced explorer and analyst workflow views remain roadmap work.
+> **Status:** The current release implements authenticated local analyst access, Alembic migrations, persisted detection-rule controls, streaming ingestion, advanced event filtering, a live overview/events dashboard, reports, synthetic datasets, tests, Docker configuration, and CI.
 
 ## Features
 
@@ -12,7 +12,10 @@ SentinelTrace is an educational defensive security monitoring platform by **Tunc
 - Suricata alert, DNS, HTTP, TLS, and flow telemetry.
 - Explainable authentication, privilege, account, group, and network detections.
 - SQLite persistence, paginated event API, alert lifecycle API, investigations, and Markdown/JSON/HTML reports.
-- Dark responsive React dashboard backed by real API responses.
+- Password-hashed local authentication with first-run administrator provisioning and analyst/admin authorization.
+- Persisted rule enable/disable settings and correlated investigation timelines.
+- Streaming uploads with configurable limits (`MAX_UPLOAD_BYTES`) and advanced event search/filtering.
+- Dark responsive React dashboard backed by real API responses, authentication, and Events Explorer.
 
 ## Architecture
 
@@ -33,6 +36,7 @@ flowchart LR
 cd backend
 python -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
+alembic upgrade head
 uvicorn app.main:app --reload
 ```
 
@@ -54,6 +58,8 @@ curl -F file=@datasets/linux/sample.log "http://localhost:8000/api/events/ingest
 curl -F file=@datasets/network/sample.jsonl "http://localhost:8000/api/events/ingest?source=suricata"
 ```
 
+On first run, use `POST /api/auth/register` once to create the local administrator. Subsequent users are created by an administrator through `POST /api/auth/users`. Set `AUTH_SECRET` to a long random value for persistent sessions across restarts.
+
 ## Docker
 
 ```bash
@@ -73,11 +79,11 @@ make frontend-build
 
 ## Security model and limitations
 
-This is a local educational analysis tool. Uploads are size-limited, parsed without shell execution, HTML reports escape untrusted content, and ORM queries are parameterized. It does not authenticate users yet, does not execute remediation, and does not claim that any event or score proves compromise. Deploy behind an authenticated reverse proxy and use PostgreSQL plus migrations before multi-user production use.
+This is a local educational analysis tool. Uploads are streamed and size-limited, parsed without shell execution, HTML reports escape untrusted content, ORM queries are parameterized, and security headers/trusted hosts are enabled. Passwords use salted scrypt hashes; tokens are signed and delivered through an HttpOnly cookie or bearer response. It does not execute remediation and does not claim that any event or score proves compromise. Deploy behind HTTPS, configure `AUTH_SECRET`, and add operational rate limiting and PostgreSQL before internet-facing use.
 
 ## Roadmap
 
-Authentication, Alembic migrations, richer explorer/timeline pages, persisted rule configuration, streaming uploads, and analyst note workflows are planned.
+Operational distributed rate limiting, password reset/revocation, richer alert/event detail visualizations, and full analyst note history remain planned.
 
 ## License
 

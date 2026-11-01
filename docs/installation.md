@@ -1,3 +1,3 @@
 # Installation
 
-Use Python 3.11+, Node 22+, and SQLite for local development. Install backend requirements from `backend/requirements.txt`, run `uvicorn app.main:app --reload` from `backend`, then run `npm install && npm run dev` from `frontend`. Docker Compose provides the same two-service arrangement with persistent SQLite storage.
+Use Python 3.11+, Node 22+, and SQLite for local development. Install backend requirements from `backend/requirements.txt`, run `alembic upgrade head`, then run `uvicorn app.main:app --reload` from `backend`. Run `npm install && npm run dev` from `frontend`. Docker Compose runs migrations before the backend and provides persistent SQLite storage.
