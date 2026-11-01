@@ -1,0 +1,3 @@
+# Security model
+
+SentinelTrace is defensive and offline by design. It never executes log contents, contacts monitored hosts, blocks traffic, or performs remediation. The first registration creates one administrator; later accounts are administrator-created analysts. Passwords use salted scrypt, access tokens are signed with `AUTH_SECRET`, cookies are HttpOnly/SameSite, and APIs enforce role boundaries. Uploads are streamed and capped by `MAX_UPLOAD_BYTES`; trusted hosts, CORS, security headers, ORM parameterization, and HTML escaping are enabled. Production deployments should add HTTPS, token revocation/password reset, distributed rate limiting, malware scanning, and PostgreSQL.

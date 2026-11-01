@@ -1,0 +1,4 @@
+{"timestamp":"2025-01-15T10:00:00Z","event_type":"dns","src_ip":"10.10.1.25","dest_ip":"8.8.8.8","proto":"UDP","dns":{"rrname":"example.edu","type":"A"}}
+{"timestamp":"2025-01-15T10:01:00Z","event_type":"http","src_ip":"10.10.1.25","dest_ip":"203.0.113.8","proto":"TCP","http":{"hostname":"training.example.edu"}}
+{"timestamp":"2025-01-15T10:02:00Z","event_type":"tls","src_ip":"10.10.1.25","dest_ip":"203.0.113.8","proto":"TCP","tls":{"sni":"training.example.edu"}}
+{"timestamp":"2025-01-15T10:03:00Z","event_type":"alert","src_ip":"203.0.113.8","dest_ip":"10.10.1.25","proto":"TCP","alert":{"signature":"ET POLICY Suspicious inbound connection","signature_id":2100365,"severity":3}}

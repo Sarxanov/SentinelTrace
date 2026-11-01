@@ -1,0 +1,3 @@
+# API reference
+
+FastAPI generates the complete OpenAPI reference at `/docs`. Public endpoints are `/api/health`, `/api/auth/register`, and `/api/auth/login`. Authenticated endpoints include `/api/auth/me`, `/api/auth/users` (administrator), `/api/events`, `/api/events/ingest`, `/api/alerts`, `/api/alerts/statistics`, `/api/investigations`, `/api/investigations/{id}/timeline`, `/api/rules`, `/api/statistics/*`, and `/api/reports/{format}`. Event filters include `q`, `source`, `event_type`, `severity`, `username`, `source_ip`, `hostname`, `event_id`, `date_from`, `date_to`, `page`, and `page_size`.
